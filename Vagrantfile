@@ -1,6 +1,12 @@
 # -*- mode: ruby -*-
 # vi: set ft=ruby :
 
+require 'rubygems'
+require 'bundler'
+
+Bundler.require
+require 'multi_json'
+
 Vagrant::Config.run do |config|
   # All Vagrant configuration is done here. The most common configuration
   # options are documented and commented below. For a complete reference,
@@ -30,6 +36,7 @@ Vagrant::Config.run do |config|
   # Forward a port from the guest to the host, which allows for outside
   # computers to access the VM, whereas host only networking does not.
   # config.vm.forward_port 80, 8080
+  config.vm.forward_port 80, 8085
 
   # Share an additional folder to the guest VM. The first argument is
   # an identifier, the second is the path on the guest to mount the
@@ -63,16 +70,21 @@ Vagrant::Config.run do |config|
   # path, and data_bags path (all relative to this Vagrantfile), and adding 
   # some recipes and/or roles.
   #
-  # config.vm.provision :chef_solo do |chef|
-  #   chef.cookbooks_path = "../my-recipes/cookbooks"
-  #   chef.roles_path = "../my-recipes/roles"
-  #   chef.data_bags_path = "../my-recipes/data_bags"
-  #   chef.add_recipe "mysql"
-  #   chef.add_role "web"
-  #
-  #   # You may also specify custom JSON attributes:
-  #   chef.json = { :mysql_password => "foo" }
-  # end
+  
+  VAGRANT_JSON = MultiJson.load(Pathname(__FILE__).dirname.join('nodes', 'vagrant.json').read)
+  
+  config.vm.provision :chef_solo do |chef|
+     chef.cookbooks_path = ["site-cookbooks", "cookbooks"]
+     chef.roles_path = "roles"
+     chef.data_bags_path = "data_bags"
+     chef.provisioning_path = "/tmp/vagrant-chef"
+  
+     # You may also specify custom JSON attributes:
+     chef.json = VAGRANT_JSON
+     VAGRANT_JSON['run_list'].each do |recipe|
+      chef.add_recipe(recipe)
+     end if VAGRANT_JSON['run_list']
+  end
 
   # Enable provisioning with chef server, specifying the chef server URL,
   # and the path to the validation key (relative to this Vagrantfile).
