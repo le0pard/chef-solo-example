@@ -1,0 +1,20 @@
+SITE
+  remote: http://community.opscode.com/api/v1
+  specs:
+    build-essential (1.3.2)
+    ohai (1.1.6)
+    runit (0.16.2)
+
+GIT
+  remote: git://github.com/opscode-cookbooks/nginx.git
+  ref: master
+  sha: 638280b3125e68d0903a60b167206f9be5bc2cca
+  specs:
+    nginx (1.1.2)
+      build-essential (>= 0.0.0)
+      ohai (>= 1.1.2)
+
+DEPENDENCIES
+  nginx (>= 0)
+  runit (>= 0)
+

@@ -47,6 +47,7 @@ GEM
     mixlib-log (1.4.1)
     mixlib-shellout (1.1.0)
     moneta (0.6.0)
+    multi_json (1.5.0)
     net-scp (1.0.4)
       net-ssh (>= 1.99.1)
     net-ssh (2.2.2)
@@ -89,4 +90,5 @@ DEPENDENCIES
   ffi (~> 1.2.0)
   knife-solo
   librarian
+  multi_json
   vagrant (~> 1.0.5)
