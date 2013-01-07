@@ -1,20 +1,5 @@
 {
-  "app": {
-    "name": "tomatoes",
-    "web_dir": "/var/data/www/apps/tomatoes"
-  },
-  "user":{
-    "name": "vagrant"
-  },
-  "nginx": {
-    "version": "1.2.3",
-    "default_site_enabled": true,
-    "source": {
-      "modules": ["http_gzip_static_module", "http_ssl_module"]
-    }
-  },
   "run_list": [
-    "recipe[nginx::source]",
-    "recipe[tomatoes]"
+    "role[web]"
   ]
 }

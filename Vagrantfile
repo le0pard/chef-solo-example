@@ -84,6 +84,10 @@ Vagrant::Config.run do |config|
      VAGRANT_JSON['run_list'].each do |recipe|
       chef.add_recipe(recipe)
      end if VAGRANT_JSON['run_list']
+     
+     Dir["#{Pathname(__FILE__).dirname.join('roles')}/*.json"].each do |role|
+       chef.add_role(role)
+     end
   end
 
   # Enable provisioning with chef server, specifying the chef server URL,
