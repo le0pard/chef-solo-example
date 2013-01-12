@@ -20,3 +20,5 @@ cookbook_file "#{node.app.web_dir}/public/index.html" do
   mode 0755
   owner node.user.name
 end
+
+include_recipe "tomatoes::node_js"
