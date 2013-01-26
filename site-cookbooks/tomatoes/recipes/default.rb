@@ -22,3 +22,8 @@ cookbook_file "#{node.app.web_dir}/public/index.html" do
 end
 
 include_recipe "tomatoes::node_js"
+
+include_recipe "tomatoes::ohai_plugin"
+
+# remove this in your prod recipe
+puts "Node version: #{node.system_node_js.version}" if node['system_node_js']
