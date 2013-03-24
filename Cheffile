@@ -3,5 +3,5 @@
 
 site 'http://community.opscode.com/api/v1'
 
-cookbook 'runit'
-cookbook 'nginx', :git => 'git://github.com/opscode-cookbooks/nginx.git'
+cookbook 'runit', '1.0.0'
+cookbook 'nginx', '1.4.0'
