@@ -1,17 +1,12 @@
 # -*- mode: ruby -*-
 # vi: set ft=ruby :
-
-require 'rubygems'
-require 'bundler'
-
-Bundler.require
-require 'multi_json'
+require 'json'
 
 Vagrant.configure("2") do |config|
   config.vm.box = "precise64"
   config.vm.network :forwarded_port, guest: 80, host: 8085
 
-  VAGRANT_JSON = MultiJson.load(Pathname(__FILE__).dirname.join('nodes', 'vagrant.json').read)
+  VAGRANT_JSON = JSON.parse(Pathname(__FILE__).dirname.join('nodes', 'vagrant.json').read)
 
   config.vm.provision :chef_solo do |chef|
      chef.cookbooks_path = ["site-cookbooks", "cookbooks"]
