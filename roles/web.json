@@ -11,15 +11,6 @@
     "user":{
       "name": "vagrant"
     },
-    "nginx": {
-      "version": "1.2.7",
-      "default_site_enabled": true,
-      "source": {
-        "prefix": "/opt/nginx-1.2.7",
-        "url": "http://nginx.org/download/nginx-1.2.7.tar.gz",
-        "modules": ["http_gzip_static_module", "http_ssl_module"]
-      }
-    },
     "nodejs": {
       "version": "0.10.1",
       "checksum": ""
