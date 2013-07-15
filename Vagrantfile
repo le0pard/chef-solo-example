@@ -15,13 +15,12 @@ Vagrant.configure("2") do |config|
      chef.provisioning_path = "/tmp/vagrant-chef"
 
      # You may also specify custom JSON attributes:
-     chef.json = VAGRANT_JSON
-     VAGRANT_JSON['run_list'].each do |recipe|
-      chef.add_recipe(recipe)
-     end if VAGRANT_JSON['run_list']
+     chef.run_list = VAGRANT_JSON.delete('run_list') if VAGRANT_JSON['run_list']
 
-     Dir["#{Pathname(__FILE__).dirname.join('roles')}/*.json"].each do |role|
-       chef.add_role(role)
+     chef.json = VAGRANT_JSON
+
+     Dir.glob(Pathname(__FILE__).dirname.join('roles', '*.json')).each do |role|
+       chef.add_role(Pathname.new(role).basename(".*").to_s)
      end
   end
 
